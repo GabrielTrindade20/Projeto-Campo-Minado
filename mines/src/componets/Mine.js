@@ -16,11 +16,12 @@ export default props => {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        alignContent: 'center',        
+        alignContent: 'center', 
+        justifyContent: 'center',       
     },
     coreMine: {
-        height: 14,
-        width: 14,
+        height: 11,
+        width: 11,
         borderRadius: 10,
         backgroundColor: 'black',
         alignItems: 'center',
@@ -29,8 +30,10 @@ const styles = StyleSheet.create({
     line: {
         position: 'absolute',
         height: 3,
-        width: 20,
+        width: 18,
         borderRadius: 3,
         backgroundColor: 'black',
+        alignItems: 'center',
+        textAlign: 'center',
     }
 })

@@ -17,15 +17,15 @@ export default props => {
     if (styleField.length === 1) styleField.push(styles.regular)
 
     //para saber se a mina está ou não explodida
-    
+    if (exploded) styleField.push(styles.exploded)
 
 
     let color = null
     if (nearMines > 0) {
-        if (nearMines == 1) color = '#D8DBED'
-        if (nearMines == 2) color = '#586273'
-        if (nearMines > 2 && nearMines < 6) color = '#BA5802'
-        if (nearMines >= 6) color = '#A61C1A'
+        if (nearMines == 1) color = '#586273'
+        if (nearMines == 2) color = '#826565'
+        if (nearMines > 2 && nearMines < 6) color = '#D65831'
+        if (nearMines >= 6) color = '#B31302'
     }
 
     return (
@@ -34,6 +34,10 @@ export default props => {
                 <Text style={[styles.label, { color: color }]}>
                     {nearMines}
                 </Text> : false
+            }
+
+            {
+                mined && opened ? <Mine></Mine> : false
             }
         </View>
     )
@@ -61,5 +65,9 @@ const styles = StyleSheet.create({
     label: {
         fontWeight: 'bold',
         fontSize: params.fontSize,
+    },
+    exploded : {
+        backgroundColor: 'red',
+        borderColor: '#BE0106',
     }
 })
