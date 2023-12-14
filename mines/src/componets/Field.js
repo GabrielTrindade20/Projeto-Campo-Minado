@@ -3,10 +3,11 @@ import { View, StyleSheet, Text } from "react-native";
 
 import params from "../params";
 import Mine from "./Mine";
+import Flag from "./Flag";
 
 export default props => {
 
-    const { mined, opened, nearMines, exploded } = props
+    const { mined, opened, nearMines, exploded, flagged } = props
 
     const styleField = [styles.field]
 
@@ -19,6 +20,11 @@ export default props => {
     //para saber se a mina está ou não explodida
     if (exploded) styleField.push(styles.exploded)
 
+    //se estiver marcado com a bandeira
+    if (flagged) styleField.push(styles.flagged)
+
+    //se não for aberto e explodido
+    if (!opened && !exploded) styleField.push(styles.regular)
 
     let color = null
     if (nearMines > 0) {
@@ -39,6 +45,11 @@ export default props => {
             {
                 mined && opened ? <Mine></Mine> : false
             }
+
+            {
+                flagged && !opened ? <Flag /> : false
+            }
+
         </View>
     )
 }
@@ -69,5 +80,6 @@ const styles = StyleSheet.create({
     exploded : {
         backgroundColor: 'red',
         borderColor: '#BE0106',
-    }
+    },
+
 })
