@@ -43,7 +43,7 @@ export default props => {
             }
 
             {
-                mined && opened ? <Mine></Mine> : false
+                mined && opened ? <Mine /> : false
             }
 
             {
