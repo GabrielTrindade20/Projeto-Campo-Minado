@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#E2D1B3',
         alignItems: 'cente',
         justifyContent: 'space-around',
-        paddingTop: 80,
         paddingHorizontal: 30,
         paddingVertical: 50,
     },
