@@ -2,10 +2,10 @@
 //Função para criar o tabuleiro
 const createBoard = (rows, columns) => {
     return Array(rows).fill(0).map((_, row) => {
-        return Array(columns).fill(0).map((_, columns) => {
+        return Array(columns).fill(0).map((_, column) => {
             return {
                 row,
-                columns,
+                column,
                 opened: false,
                 flagged: false,
                 mined: false,
@@ -54,7 +54,6 @@ const getNeighbors = (board, row, column) => {
     const neighbors = []
     const rows = [row - 1, row, row + 1]
     const columns = [column - 1, column, column + 1]
-
     //validações para os vizinhos
     rows.forEach(r => {
         columns.forEach(c => {
@@ -63,14 +62,14 @@ const getNeighbors = (board, row, column) => {
             const validColumn = c >= 0 && c < board[0].length
 
             //validação para adicionar como vizinho válido
-            if (diferent && validColumn && validRow) {
+            if (diferent && validRow && validColumn) {
                 neighbors.push(board[r][c])
             }
         })
     })
     return neighbors
-
 }
+
 //valida se a vizinhança é segura
 const safeNeighborhood = (board, row, column) => {
     const safes = (result, neighbor) => result && !neighbor.mined
@@ -81,21 +80,18 @@ const safeNeighborhood = (board, row, column) => {
 const openField = (board, row, column) => {
     const field = board[row][column]
 
-    //se não aberto, abre o field
+    //se estiver aberto, abre o field
     if (!field.opened) {
         field.opened = true
-
         //se o field estiver minado acontece uma explosão
         if (field.mined) {
             field.exploded = true
         }
-
         //se for a vizinhança for segura, abre os campos até que não seja mais
         else if (safeNeighborhood(board, row, column)) {
             getNeighbors(board, row, column)
                 .forEach(n => openField(board, n.row, n.column))
         }
-
         //caso a vizinhança não seja mais segura, calcula a quantidade de minas ao redor
         else {
             const neighbors = getNeighbors(board, row, column)
@@ -120,6 +116,18 @@ const wonGame = board => fields(board).filter(pendding).length === 0
 const showMines = board => fields(board).filter(field => field.mined)
     .forEach(field => field.opened = true)
 
+
+//marca a bandeira
+const invertFlag = (board, row, column) => {
+    const field = board[row][column]
+    field.flagged = !field.flagged
+}
+
+
+//calcula quantas flags foram marcadas
+const flagsUsed = board => fields(board)
+    .filter(field => field.flagged).length
+
 export {
     createMineBoard,
     cloneBoard,
@@ -127,4 +135,6 @@ export {
     hadExplosion,
     wonGame,
     showMines,
+    invertFlag,
+    flagsUsed,
 }
