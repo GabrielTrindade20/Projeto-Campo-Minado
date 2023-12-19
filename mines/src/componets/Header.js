@@ -1,21 +1,31 @@
-import React from "react";
+import React, { cloneElement } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Flag from "./Flag";
 
 export default props => {
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.button}
-                onPress={props.onNewGame}>
-                <Text styles={styles.buttonLabel}>Novo Jogo</Text>
-            </TouchableOpacity>
+            <View style={styles.header}>
+                <Text style={styles.buttonLabel}>Campo Minado By gab_roct</Text>
+            </View>
 
-            <View style={styles.flagContainer}>
-                <TouchableOpacity onPress={props.onFlagPress}
-                    style={styles.flagButton}>
+            <View style={styles.infomations}>
+                <View style={styles.selections}>
+                    <TouchableOpacity style={styles.button}
+                        onPress={props.onNewGame}>
+                        <Text styles={styles.buttonLabel}>Novo Jogo</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.button}
+                        onPress={props.onFlagPress}>
+                        <Text styles={styles.buttonLabel}>Dificuldade</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.flagContainer}>
                     <Flag bigger />
-                </TouchableOpacity>
-                <Text style={styles.flagsLeft}>= {props.flagsLeft}</Text>
+                    <Text style={styles.flagsLeft}> = {props.flagsLeft}</Text>
+                </View>
             </View>
         </View>
     )
@@ -24,16 +34,28 @@ export default props => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    header: {
+        backgroundColor: '#3B4827',
+        padding: 5,
+        alignItems: 'center',
+    },
+    infomations: {
         flexDirection: 'row',
         backgroundColor: '#E2D1B3',
-        alignItems: 'cente',
+        alignItems: 'center',
         justifyContent: 'space-around',
-        paddingHorizontal: 30,
-        paddingVertical: 50,
+        
+    },
+    selections: {
+        padding: 10,
+        flex: 1,
+       alignItems: 'center',
     },
     flagContainer: {
-        flexDirection: 'row',
-        paddingRight: 10,
+        justifyContent: 'space-between',
+        textAlign: 'center',  
+        flex: 1,      
     },
     flagButton: {
         marginTop: 10,
@@ -42,16 +64,22 @@ const styles = StyleSheet.create({
     flagsLeft: {
         fontSize: 30,
         fontWeight: 'bold',
-        paddingTop: 5,
-        marginLeft: 10,
+        marginLeft: 30,
     },
     button: {
         backgroundColor: '#999',
-        padding: 15,
+        padding: 10,
         borderRadius: 5,
+        marginBottom: 5,
+        width: '80%',
     },
     buttonLabel: {
         fontSize: 20,
+        color: '#DDD',
+        fontWeight: 'bold',
+    },
+    bombLabel: {
+        fontSize: 10,
         color: '#DDD',
         fontWeight: 'bold',
     }

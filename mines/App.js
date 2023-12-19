@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert, SafeAreaView, StatusBar } from 'react-native';
 
 import params from './src/params';
 import MineField from './src/componets/MineField';
@@ -85,7 +85,8 @@ export default class App extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor="#fff" barStyle="dark-content" />
         <LevelSelection isVisible={this.state.showLevelSelection}
           onLevelSelected={this.onLevelSelected}
           onCancel={() => this.setState({ showLevelSelection: false })} />
@@ -101,7 +102,7 @@ export default class App extends Component {
             onSelectField={this.onSelectField} />
         </View>
 
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -109,7 +110,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
   },
   board: {
     alignItems: 'center',
